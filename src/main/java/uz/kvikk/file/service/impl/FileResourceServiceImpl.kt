@@ -115,7 +115,7 @@ class FileResourceServiceImpl(
         extension
     ).execute()
 
-    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY)
+    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY_VIEW)
         .where(ID.eq(storedName))
         .fetchOneInto(FileResource::class.java)
 
@@ -150,7 +150,7 @@ class FileResourceServiceImpl(
     if (StringUtils.isEmpty(extension))
       throw FileStorageException("Sorry! Invalid extension=$extension")
 
-    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY)
+    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY_VIEW)
         .where(ID.eq(storedName))
         .fetchOneInto(FileResource::class.java)
 
@@ -187,7 +187,7 @@ class FileResourceServiceImpl(
 
     val status = parametres["status"].toInt()
     if ( status == 2 || status == 6) {
-      val rFile: FileResource = dsl.selectFrom<Record>(ENTITY)
+      val rFile: FileResource = dsl.selectFrom<Record>(ENTITY_VIEW)
           .where(ID.eq(storedName))
           .and(EXTENSION.eq(extension))
           .fetchOneInto(FileResource::class.java)
@@ -225,7 +225,7 @@ class FileResourceServiceImpl(
     if (StringUtils.isEmpty(extension))
       throw FileStorageException("Sorry! Invalid extension=$extension")
 
-    val rFile: FileResource = dsl.selectFrom<Record>(ENTITY)
+    val rFile: FileResource = dsl.selectFrom<Record>(ENTITY_VIEW)
         .where(ID.eq(storedName))
         .and(EXTENSION.eq(extension))
         .fetchOneInto(FileResource::class.java) ?: throw FileStorageException("Sorry! Invalid file not found.")
@@ -323,7 +323,7 @@ class FileResourceServiceImpl(
         extension
     ).execute()
 
-    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY)
+    val rFile: FileResource? = dsl.selectFrom<Record>(ENTITY_VIEW)
         .where(ID.eq(storedName))
         .fetchOneInto(FileResource::class.java)
 
@@ -358,7 +358,7 @@ class FileResourceServiceImpl(
     if (StringUtils.isEmpty(extension))
       throw FileStorageException("Sorry! Invalid extension=$extension")
 
-    val rFile: FileResource = dsl.selectFrom<Record>(ENTITY)
+    val rFile: FileResource = dsl.selectFrom<Record>(ENTITY_VIEW)
         .where(ID.eq(storedName))
         .and(EXTENSION.eq(extension))
         .fetchOneInto(FileResource::class.java) ?: throw FileStorageException("Sorry! Invalid file not found.")
@@ -397,6 +397,7 @@ class FileResourceServiceImpl(
   companion object {
     val ENTITY_SEQ: Sequence<BigInteger> = DSL.sequence(DSL.name("FILE_RESOURCE_SEQ"))
     val ENTITY: Table<Record> = DSL.table(DSL.name("FILE_RESOURCE"))
+    val ENTITY_VIEW: Table<Record> = DSL.table(DSL.name("FILE_RESOURCE_VIEW"))
     val ID: Field<String> = DSL.field(DSL.name("ID"), SQLDataType.VARCHAR)
     val ORDERED: Field<Long> = DSL.field(DSL.name("ORDERED"), SQLDataType.BIGINT)
     val FILE_RESOURCE_VERSION: Field<Long> = DSL.field(DSL.name("FILE_RESOURCE_VERSION"), SQLDataType.BIGINT)
