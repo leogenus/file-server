@@ -454,5 +454,7 @@ fun getBaseUrl(request: HttpServletRequest): String {
   val protocol = request.getHeader("X-Forwarded-Proto")
   val remoteAddr = request.getHeader("X-Forwarded-For")
   println("Request addr: $remoteAddr")
-  return "$protocol://$host${if (port == -1) "" else ":$port"}"
+  val protocolFiltered = if(protocol.isNullOrEmpty() || "null" == protocol) "" else "$protocol://"
+  val portFiltered = if (port == -1) "" else ":$port"
+  return "$protocolFiltered$host$portFiltered"
 }

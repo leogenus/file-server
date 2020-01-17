@@ -12,18 +12,24 @@ let multipleFileUploadSuccess = document.querySelector('#multipleFileUploadSucce
 
 function uploadSingleFile(file) {
   let formData = new FormData();
+  formData.append("clientId", "test-client-id");
+  formData.append("fileResourceType", "TEST_TYPE");
   formData.append("file", file);
 
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "/uploadFile");
+  xhr.open("POST", "/file-server/uploadFile");
 
   xhr.onload = function () {
     console.log(xhr.responseText);
     let response = JSON.parse(xhr.responseText);
-    let {fileDownloadUri} = response;
+    let {fileResourceUrl, uploadedFullName} = response;
     if (xhr.status === 200) {
       singleFileUploadError.style.display = "none";
-      singleFileUploadSuccess.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + fileDownloadUri + "' target='_blank'>" + fileDownloadUri + "</a></p>";
+      singleFileUploadSuccess.innerHTML = `
+            <p>File Uploaded Successfully.</p>
+            <p>DownloadUrl : 
+                <a href='${fileResourceUrl}' target='_blank'>(${uploadedFullName}) ${fileResourceUrl}</a>
+            </p>`;
       singleFileUploadSuccess.style.display = "block";
     } else {
       singleFileUploadSuccess.style.display = "none";
