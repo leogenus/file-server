@@ -3,10 +3,10 @@ server.port: 8091
 spring:
   #Databese
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:./testdb
-    username: sa
-    password: password
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/file_server_db
+    username: postgres
+    password: postgres
 #  datasource:
 #    driver-class-name: oracle.jdbc.driver.OracleDriver
 #    url: jdbc:oracle:thin:@localhost:1521:ORCLCDB
@@ -14,10 +14,9 @@ spring:
 #    password: files_tmp
   ## Flyway
   flyway:
-    url: jdbc:h2:./testdb
-#    schemas: TESTDB
-    user: sa
-    password: password
+    url: jdbc:postgresql://localhost:5432/file_server_db
+    user: postgres
+    password: postgres
     baseline-on-migrate: true
     baseline-version: 0
     enabled: true
@@ -25,6 +24,9 @@ spring:
   jpa:
     generate-ddl: false
     hibernate.ddl-auto: none
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
   ## MULTIPART (MultipartProperties)
   servlet.multipart:
     enabled: true

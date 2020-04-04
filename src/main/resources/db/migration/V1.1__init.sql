@@ -1,17 +1,17 @@
-CREATE SEQUENCE FILE_RESOURCE_SEQ INCREMENT BY 1;
-CREATE TABLE FILE_RESOURCE
+create sequence file_resource_seq increment by 1;
+create table file_resource
 (
-    ID                    VARCHAR2(255) DEFAULT ('FILE_RESOURCE_SEQ-' || FILE_RESOURCE_SEQ.NEXTVAL) NOT NULL,
-    ORDERED               NUMBER        DEFAULT FILE_RESOURCE_SEQ.CURRVAL                           NOT NULL,
-    CREATED_DATE          DATE          DEFAULT SYSDATE                                             NOT NULL,
-    STORED_NAME           VARCHAR2(512)                                                             NOT NULL,
-    UPLOADED_NAME         VARCHAR2(512)                                                             NOT NULL,
-    CLIENT_ID             VARCHAR2(100)                                                             NOT NULL,
-    FILE_RESOURCE_TYPE    VARCHAR2(255)                                                             NOT NULL,
-    FILE_RESOURCE_PATH    VARCHAR2(2048)                                                            NOT NULL,
-    FILE_RESOURCE_SIZE    NUMBER                                                                    NOT NULL,
-    EXTENSION             VARCHAR2(10)                                                              NOT NULL,
-    DELIMITER             CHAR(1)       DEFAULT '.'                                                 NOT NULL,
-    FILE_RESOURCE_VERSION NUMBER        DEFAULT 1                                                   NOT NULL,
-    CONSTRAINT FILE_RESOURCE_PK PRIMARY KEY (ID)
+    id                    varchar(255) default ('file_resource_seq-' || nextval('file_resource_seq')) not null,
+    ordered               bigint       default currval('file_resource_seq')                           not null,
+    created_date          timestamp    default now()                                                  not null,
+    stored_name           varchar(512)                                                                not null,
+    uploaded_name         varchar(512)                                                                not null,
+    client_id             varchar(100)                                                                not null,
+    file_resource_type    varchar(255)                                                                not null,
+    file_resource_path    varchar(2048)                                                               not null,
+    file_resource_size    bigint                                                                      not null,
+    extension             varchar(10)                                                                 not null,
+    delimiter             char(1)      default '.'                                                    not null,
+    file_resource_version bigint       default 1                                                      not null,
+    constraint file_resource_pk primary key (id)
 );

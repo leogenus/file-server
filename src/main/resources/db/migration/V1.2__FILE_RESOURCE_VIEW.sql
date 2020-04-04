@@ -1,17 +1,16 @@
-create force view FILE_RESOURCE_VIEW
-AS
-SELECT f.ID,
-       f.ORDERED,
-       f.CREATED_DATE,
-       f.STORED_NAME,
-       f.UPLOADED_NAME,
-       f.CLIENT_ID,
-       f.FILE_RESOURCE_TYPE,
-       f.FILE_RESOURCE_PATH,
-       f.FILE_RESOURCE_SIZE,
-       f.EXTENSION,
-       f.DELIMITER,
-       (f.STORED_NAME || f.DELIMITER || f.EXTENSION)                                as STORED_FULL_NAME,
-       (f.UPLOADED_NAME || f.DELIMITER || f.EXTENSION)                              as UPLOADED_FULL_NAME,
-       (f.FILE_RESOURCE_PATH || '/' || f.STORED_NAME || f.DELIMITER || f.EXTENSION) as ABSOLUTE_FILE
-FROM FILE_RESOURCE f;
+create or replace view file_resource_view as
+select f.id,
+       f.ordered,
+       f.created_date,
+       f.stored_name,
+       f.uploaded_name,
+       f.client_id,
+       f.file_resource_type,
+       f.file_resource_path,
+       f.file_resource_size,
+       f.extension,
+       f.delimiter,
+       (f.stored_name || f.delimiter || f.extension)                                as stored_full_name,
+       (f.uploaded_name || f.delimiter || f.extension)                              as uploaded_full_name,
+       (f.file_resource_path || '/' || f.stored_name || f.delimiter || f.extension) as absolute_file
+from file_resource f;
